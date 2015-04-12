@@ -141,10 +141,10 @@ class Lexer(compat.with_metaclass(LexerMeta)):
 
     tokens = {
         'root': [
-            (r'--.*?(\r\n|\r|\n)', tokens.Comment.Single),
+            (r'(--|#).*?(\r\n|\r|\n)', tokens.Comment.Single),
             # $ matches *before* newline, therefore we have two patterns
             # to match Comment.Single
-            (r'--.*?$', tokens.Comment.Single),
+            (r'(--|#).*?$', tokens.Comment.Single),
             (r'(\r\n|\r|\n)', tokens.Newline),
             (r'\s+', tokens.Whitespace),
             (r'/\*', tokens.Comment.Multiline, 'multiline-comments'),
@@ -163,6 +163,9 @@ class Lexer(compat.with_metaclass(LexerMeta)):
             # see https://github.com/andialbrecht/sqlparse/pull/64
             (r'VALUES', tokens.Keyword),
             (r'@[^\W\d_]\w+', tokens.Name),
+            # IN is special, it may be followed by a parenthesis, but
+            # is never a functino, see issue183
+            (r'in\b(?=[ (])?', tokens.Keyword),
             (r'[^\W\d_]\w*(?=[.(])', tokens.Name),  # see issue39
             (r'[-]?0x[0-9a-fA-F]+', tokens.Number.Hexadecimal),
             (r'[-]?[0-9]*(\.[0-9]+)?[eE][-]?[0-9]+', tokens.Number.Float),
