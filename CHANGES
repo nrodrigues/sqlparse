@@ -1,6 +1,25 @@
 Development Version
 -------------------
 
+Nothing yet.
+
+
+Release 0.1.16 (Jul 26, 2015)
+-----------------------------
+
+Bug Fixes
+* Fix a regression in get_alias() introduced in 0.1.15 (issue185).
+* Fix a bug in the splitter regarding DECLARE (issue193).
+* sqlformat command line tool doesn't duplicat newlines anymore (issue191).
+* Don't mix up MySQL comments starting with hash and MSSQL
+  temp tables (issue192).
+* Statement.get_type() now ignores comments at the beginning of
+  a statement (issue186).
+
+
+Release 0.1.15 (Apr 15, 2015)
+-----------------------------
+
 Bug Fixes
 * Fix a regression for identifiers with square bracktes
   notation (issue153, by darikg).

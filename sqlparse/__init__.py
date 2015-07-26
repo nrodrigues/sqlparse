@@ -6,7 +6,7 @@
 """Parse SQL statements."""
 
 
-__version__ = '0.1.14'
+__version__ = '0.1.17-dev'
 
 # Setup namespace
 from sqlparse import compat
