@@ -385,6 +385,24 @@ def group_typecasts(tlist):
     _group_left_right(tlist, T.Punctuation, '::', sql.Identifier)
 
 
+def group_inclause(tlist):
+    [group_inclause(sgroup) for sgroup in tlist.get_sublists()
+     if not isinstance(sgroup, sql.In)]
+    idx = 0
+    token = tlist.token_next_by_type(idx, T.Keyword)
+    while token:
+        if token.value.upper() == 'IN':
+            next_ = tlist.token_next(token)
+            if not isinstance(next_, sql.Parenthesis):
+                idx = tlist.token_index(token) + 1
+            else:
+                inclause = tlist.group_tokens(sql.In,
+                                              tlist.tokens_between(token, next_))
+                idx = tlist.token_index(inclause) + 1
+        else:
+            idx = tlist.token_index(token) + 1
+        token = tlist.token_next_by_type(idx, T.Keyword)
+
 def group_functions(tlist):
     [group_functions(sgroup) for sgroup in tlist.get_sublists()
      if not isinstance(sgroup, sql.Function)]
@@ -437,6 +455,7 @@ def group(tlist):
             group_comments,
             group_brackets,
             group_functions,
+            group_inclause,
             group_where,
             group_case,
             group_identifier,

@@ -651,6 +651,10 @@ class Case(TokenList):
         # Return cases list
         return ret
 
+class In(TokenList):
+    """An In clause."""
+
+    __slots__ = ('value', 'ttype', 'tokens')
 
 class Function(TokenList):
     """A function or procedure call."""

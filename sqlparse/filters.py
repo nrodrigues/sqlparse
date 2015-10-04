@@ -406,7 +406,7 @@ class ReindentFilter:
 
     def _process_identifierlist(self, tlist):
         identifiers = list(tlist.get_identifiers())
-        if len(identifiers) > 1 and not tlist.within(sql.Function):
+        if len(identifiers) > 1 and not tlist.within(sql.Function) and not tlist.within(sql.In):
             first = list(identifiers[0].flatten())[0]
             if self.char == '\t':
                 # when using tabs we don't count the actual word length

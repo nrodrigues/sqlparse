@@ -214,9 +214,8 @@ class TestGrouping(TestCaseBase):
 
     def test_function_not_in(self):  # issue183
         p = sqlparse.parse('in(1, 2)')[0]
-        self.assertEqual(len(p.tokens), 2)
-        self.assertEqual(p.tokens[0].ttype, T.Keyword)
-        self.assert_(isinstance(p.tokens[1], sql.Parenthesis))
+        self.assertEqual(len(p.tokens), 1)
+        self.assert_(isinstance(p.tokens[0], sql.In))
 
     def test_varchar(self):
         p = sqlparse.parse('"text" Varchar(50) NOT NULL')[0]
