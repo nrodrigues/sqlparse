@@ -16,8 +16,7 @@ def _group_left_right(tlist, ttype, value, cls,
                       check_left=lambda t: True,
                       include_semicolon=False):
     [_group_left_right(sgroup, ttype, value, cls, check_right, check_left,
-                       include_semicolon) for sgroup in tlist.get_sublists()
-     if not isinstance(sgroup, cls)]
+                       include_semicolon) for sgroup in tlist.get_sublists()]
     idx = 0
     token = tlist.token_next_match(idx, ttype, value)
     while token:
